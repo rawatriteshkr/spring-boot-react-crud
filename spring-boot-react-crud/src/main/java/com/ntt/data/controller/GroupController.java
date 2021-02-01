@@ -27,39 +27,39 @@ import com.ntt.data.service.GroupService;
 public class GroupController {
 
 	private final Logger log = LoggerFactory.getLogger(GroupController.class);
-	
+
 	@Autowired
 	private GroupService groupService;
-	
+
 	@GetMapping("/groups")
 	public List<Group> findAllGroups() {
 		return groupService.findAll();
 	}
-	
-	@GetMapping("/group/{id}")
-	public ResponseEntity<Group> getGroup(@PathVariable Long id){
-		Optional<Group> group = groupService.getGroup(id);
-		return group.map(response -> ResponseEntity.ok().body(response)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-	}
-	
-	@PostMapping("/group/save")
-	public ResponseEntity<Group> saveGroup(@RequestBody Group group) throws URISyntaxException{
-		Group result = groupService.saveGroup(group);
-        return ResponseEntity.created(new URI("/api/group/" + result.getId()))
-                .body(result);
-	}
-	
-	@PutMapping("/group/update/{id}")
-    ResponseEntity<Group> updateGroup(@RequestBody Group group) {
-        log.info("Request to update group: {}", group);
-        Group result = groupService.saveGroup(group);
-        return ResponseEntity.ok().body(result);
-    }
 
-    @DeleteMapping("/group/delete/{id}")
-    public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
-        log.info("Request to delete group: {}", id);
-        groupService.deleteGroupById(id);
-        return ResponseEntity.ok().build();
-    }
+	@GetMapping("/group/{id}")
+	public ResponseEntity<Group> getGroup(@PathVariable Long id) {
+		Optional<Group> group = groupService.getGroup(id);
+		return group.map(response -> ResponseEntity.ok().body(response))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+
+	@PostMapping("/group/save")
+	public ResponseEntity<Group> saveGroup(@RequestBody Group group) throws URISyntaxException {
+		Group result = groupService.saveGroup(group);
+		return ResponseEntity.created(new URI("/api/group/" + result.getId())).body(result);
+	}
+
+	@PutMapping("/group/update/{id}")
+	ResponseEntity<Group> updateGroup(@RequestBody Group group) {
+		log.info("Request to update group: {}", group);
+		Group result = groupService.saveGroup(group);
+		return ResponseEntity.ok().body(result);
+	}
+
+	@DeleteMapping("/group/delete/{id}")
+	public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
+		log.info("Request to delete group: {}", id);
+		groupService.deleteGroupById(id);
+		return ResponseEntity.ok().build();
+	}
 }

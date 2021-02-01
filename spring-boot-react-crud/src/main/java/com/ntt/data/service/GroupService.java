@@ -11,22 +11,22 @@ import com.ntt.data.model.Group;
 
 @Service
 public class GroupService {
-	
+
 	@Autowired
 	private GroupRepository groupRepository;
-	
+
 	public Group saveGroup(Group group) {
 		return groupRepository.save(group);
 	}
-	
-	public List<Group> findAll(){
+
+	public List<Group> findAll() {
 		return groupRepository.findAll();
 	}
-	
+
 	public Optional<Group> getGroup(Long id) {
 		return groupRepository.findById(id);
 	}
-	
+
 	public void deleteGroupById(Long id) {
 		groupRepository.deleteById(id);
 	}

@@ -25,19 +25,19 @@ public class Group {
 	private String address;
 	private String city;
 	private String stateOrProvince;
-    private String country;
-    private String postalCode;
-    
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    private User user;
+	private String country;
+	private String postalCode;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private Set<Event> events;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private User user;
 
-    public Group() {
-    	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Event> events;
+
+	public Group() {
+
 	}
-    
+
 	public Group(String name) {
 		this.name = name;
 	}
@@ -113,6 +113,5 @@ public class Group {
 	public void setEvents(Set<Event> events) {
 		this.events = events;
 	}
-    
-    
+
 }
