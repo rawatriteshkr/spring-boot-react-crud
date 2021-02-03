@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +32,13 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 
+	@CrossOrigin(origins = {"http://localhost:3000"})
 	@GetMapping("/groups")
 	public List<Group> findAllGroups() {
 		return groupService.findAll();
 	}
 
+	@CrossOrigin(origins = {"http://localhost:3000"})
 	@GetMapping("/group/{id}")
 	public ResponseEntity<Group> getGroup(@PathVariable Long id) {
 		Optional<Group> group = groupService.getGroup(id);
@@ -43,12 +46,14 @@ public class GroupController {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
+	@CrossOrigin(origins = {"http://localhost:3000"})
 	@PostMapping("/group/save")
 	public ResponseEntity<Group> saveGroup(@RequestBody Group group) throws URISyntaxException {
 		Group result = groupService.saveGroup(group);
 		return ResponseEntity.created(new URI("/api/group/" + result.getId())).body(result);
 	}
 
+	@CrossOrigin(origins = {"http://localhost:3000"})
 	@PutMapping("/group/update/{id}")
 	ResponseEntity<Group> updateGroup(@RequestBody Group group) {
 		log.info("Request to update group: {}", group);
@@ -56,6 +61,7 @@ public class GroupController {
 		return ResponseEntity.ok().body(result);
 	}
 
+	@CrossOrigin(origins = {"http://localhost:3000"})
 	@DeleteMapping("/group/delete/{id}")
 	public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
 		log.info("Request to delete group: {}", id);
